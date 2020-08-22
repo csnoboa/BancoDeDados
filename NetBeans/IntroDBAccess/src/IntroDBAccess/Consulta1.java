@@ -14,15 +14,6 @@ import java.sql.*;
  */
 public class Consulta1 {
     public static void main(String[] args) {
-        
-        try{
-            //carregar o driver do MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("Import JDBC Success!");  
-        } catch (ClassNotFoundException e1) {
-            System.out.println("Not Possible to Import JDBC Driver!");
-            System.exit(0);
-        }
           
         try{
             // iniciar a conexão com servidor
@@ -34,10 +25,11 @@ public class Consulta1 {
             System.out.println("Statement Create Success!");
 
             //executar uma query
-            ResultSet rs = stat.executeQuery("select id, name, dept_name, salary from instructor");
+            int filtroSalario = 80000;
+            ResultSet rs = stat.executeQuery("select id, name, dept_name, salary from instructor where salary >= " + filtroSalario);
 
             while (rs.next()){
-                System.out.println(rs.getString("name") + " / " + rs.getString("dept_name"));
+                System.out.println(rs.getString("name") + " / " + rs.getString("dept_name") + " / " + rs.getString("salary"));
             }
 
             // fechar a conexão
