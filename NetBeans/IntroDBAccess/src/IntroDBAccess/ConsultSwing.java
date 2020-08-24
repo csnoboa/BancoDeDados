@@ -149,6 +149,7 @@ public class ConsultSwing extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Botão "Inicio": Chama a função para rs ir para o primeiro item, e muda o texto nos TextFields
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         consultFirst();
         
@@ -164,6 +165,7 @@ public class ConsultSwing extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //Botão "Ultimo": Chama a função para rs ir para o ultimo item, e muda o texto nos TextFields
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         consultLast();
@@ -179,6 +181,7 @@ public class ConsultSwing extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    //Botão "Proximo": Chama a função para rs ir para o proximo item, e muda o texto nos TextFields
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         consultNext();
@@ -193,7 +196,7 @@ public class ConsultSwing extends javax.swing.JFrame {
             System.out.println("Error: "+sql1);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    //Botão "Anterior": Chama a função para rs ir para o item anterior, e muda o texto nos TextFields
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         consultPrevious();
@@ -211,16 +214,21 @@ public class ConsultSwing extends javax.swing.JFrame {
 
     /**
      */
+    //Função para rs ir para o primeiro item
     public void consultFirst(){
         try{
+            // ?useTimezone=true&serverTimezone=UTC foi necessario ser adicionado na URL por conta de erro na conexão
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/university?useTimezone=true&serverTimezone=UTC", "aula", "1234");
-            Statement stat = con.createStatement();
+            Statement stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                                  ResultSet.CONCUR_UPDATABLE);
             rs = stat.executeQuery("select id, name, dept_name, tot_cred from student");
             rs.next();
          }catch (SQLException sql1){
              System.out.println("Error: "+sql1);
          }
     }
+    
+    //Função para rs ir para o próximo item
     public void consultNext(){
         try{
             rs.next();
@@ -228,6 +236,8 @@ public class ConsultSwing extends javax.swing.JFrame {
              System.out.println("Error: "+sql1);
          }
     }
+    
+    //Função para rs ir para o item anterior
     public void consultPrevious(){
         try{
             rs.previous();
@@ -235,6 +245,8 @@ public class ConsultSwing extends javax.swing.JFrame {
              System.out.println("Error: "+sql1);
          }
     }
+    
+    //Função para rs ir para o ultimo item
     public void consultLast(){
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/university?useTimezone=true&serverTimezone=UTC", "aula", "1234");
@@ -242,16 +254,12 @@ public class ConsultSwing extends javax.swing.JFrame {
                                   ResultSet.CONCUR_UPDATABLE);
             rs = stat.executeQuery("select id, name, dept_name, tot_cred from student");
             rs.last();
-            rs.previous();
          }catch (SQLException sql1){
              System.out.println("Error: "+sql1);
          }
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
-        
-        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
