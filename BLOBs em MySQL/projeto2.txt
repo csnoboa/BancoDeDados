@@ -1,0 +1,15 @@
+- buscar e salvar uma figura pequena com foto para cada um dos professores da tabela instructor.
+	- Vi o tipo do campo que era para utilizar, o tipo BLOB que possui tamanho tamanho maximo de 16kb
+		então usei a seguinte string para pesquisa no google: "imagens até 16kb", e encontrei o site 		"http://www.cemig.com.br/sites/blogs/sustentabilidade/Lists/Fotos/Forms/AllItems.aspx"
+		que foi possível listar os arquivos pelo tamanho.
+	- Usei o seguinte comando para ver quantos professores tinham: "SELECT COUNT(*) FROM university.instructor;"
+	  o resultado foi "12", então baixei esse numero de imagens, coloquei as imagens na pasta lib.
+
+- alterar a tabela para incluir um campo adicional chamado "photo", de tipo BLOB
+	- utilizei o comando "ALTER TABLE university.instructor
+				ADD COLUMN photo BLOB AFTER salary;"
+
+-desenvolver um programa que inclua as fotos baixadas nos registros adequados da tabela.  
+	- criei o arquivo Insert.java, e a classe Insert
+	- para cada professor, adicionei o ID do professor e a imagem respectiva (se fosse python, eu faria um dict relacionando cada id para um filename, 
+		e rodaria em loop... porém não tenho domínio de java então fiz "manualmente")
