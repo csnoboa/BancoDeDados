@@ -1,0 +1,16 @@
+CAIQUE SALVADOR NOBOA
+RA: 1904949
+
+Exercicio BD2
+
+1- Existem mais campos que podem ter o mesmo valor (a mais dos campos de ID), como por exemplo: depart_name, semester e year.
+Então não é aconselhavel usar o natural join nesse caso.
+
+2- 
+
+b) select course_id, title, name, ID
+from course
+left outer join section using(course_id)
+left outer join teaches using(course_id)
+left outer join instructor using(ID)
+where section.semester = 'Spring' and section.year = 2018;
